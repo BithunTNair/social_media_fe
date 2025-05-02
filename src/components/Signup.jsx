@@ -3,8 +3,10 @@ import { useForm } from "react-hook-form";
 import AxiosInstance from '../config/ApiCall';
 import axios from 'axios'
 import { errorToast, successToast } from '../plugins/toast';
+import { useNavigate } from 'react-router-dom';
 
 const Signup = () => {
+    const navigate = useNavigate()
     const {
         register,
         handleSubmit,
@@ -20,7 +22,8 @@ const Signup = () => {
             data: data
         }).then((response)=>{
             console.log(response.data);
-            successToast('User Registration Successfull')
+            successToast('User Registration Successfull');
+            navigate('/generate_otp')
             
         })
       } catch (error) {
@@ -69,7 +72,8 @@ const Signup = () => {
                                 {...register('mobileNumber', { required: 'Mobile Number is required', pattern: { value: /^[0-9]{10}$/, message: 'Mobile Number must be exactly 10 digits ' } })}
                             />
                             {errors.mobileNumber && <p className='text-red-500'>{errors.mobileNumber.message} </p>}
-                            <button type='submit' className="w-full mt-4 py-3 rounded-lg bg-gradient-to-r from-purple-600 to-pink-500 text-white font-semibold text-lg hover:shadow-xl hover:scale-105 transition-transform duration-300 hover:cursor-pointer">
+                            <button type='submit' className="w-full mt-4 py-3 rounded-lg bg-gradient-to-r from-purple-600 to-pink-500 text-white font-semibold text-lg hover:shadow-xl hover:scale-105 transition-transform duration-300 hover:cursor-pointer"
+                            >
                                 Submit
                             </button>
                         </div>

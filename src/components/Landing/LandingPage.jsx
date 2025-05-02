@@ -1,7 +1,10 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { motion } from 'framer-motion'
+import { useNavigate } from 'react-router-dom'
 
 const LandingPage = () => {
+   const navigate = useNavigate()
+ 
     return (
         <>
             <div className="min-h-screen w-full bg-gradient-to-br from-[#18230F] via-[#27391C] to-[#255F38] flex items-center justify-center p-4 relative overflow-hidden">
@@ -35,6 +38,7 @@ const LandingPage = () => {
                     <div className="flex flex-col sm:flex-row gap-6 justify-center">
                         <button
                             className="bg-[#FF6B6B] hover:bg-[#ff4c4c] text-white font-semibold py-3 px-8 rounded-full text-lg shadow-lg transition duration-300 hover:scale-105"
+                        onClick={() => navigate('/signup')}
                         >
                             Sign Up
                         </button>
