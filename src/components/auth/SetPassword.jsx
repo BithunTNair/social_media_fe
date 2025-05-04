@@ -3,9 +3,13 @@ import React from 'react'
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import { errorToast, successToast } from '../../plugins/toast';
+import { useSelector } from 'react-redux';
 
 const SetPassword = () => {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
+  const {signedupUser}= useSelector(store=>store.signedupUser);
+  console.log(signedupUser.id);
+  
   const {
     register,
     handleSubmit,
@@ -17,8 +21,9 @@ const SetPassword = () => {
     try {
       axios({
         method: 'POST',
-        url: `${import.meta.env.VITE_BASE_URL}/auth/create_password`,
-        data: data
+        url: `${import.meta.env.VITE_BASE_URL}/auth/create_password/${signedupUser._id}`,
+        data: data,
+        params: {id:signedupUser._id}
       }).then((response) => {
         console.log(response.data);
         successToast('Your account is created successfully');

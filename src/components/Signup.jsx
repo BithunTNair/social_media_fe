@@ -4,9 +4,13 @@ import AxiosInstance from '../config/ApiCall';
 import axios from 'axios'
 import { errorToast, successToast } from '../plugins/toast';
 import { useNavigate } from 'react-router-dom';
+import {useDispatch, useSelector} from 'react-redux'
+import { setSignedupUser } from '../Redux_toolkit/signedupUserslice';
 
 const Signup = () => {
-    const navigate = useNavigate()
+    const navigate = useNavigate();
+    const dispatch= useDispatch();
+    const {signedupUser}= useSelector(store=>store.signedupUser)
     const {
         register,
         handleSubmit,
@@ -23,7 +27,12 @@ const Signup = () => {
         }).then((response)=>{
             console.log(response.data);
             successToast('User Registration Successfull');
-            navigate('/generate_otp')
+           
+            navigate('/generate_otp');
+            localStorage.setItem('signedupUser', JSON.stringify(response.data.registered_user));
+            dispatch(setSignedupUser(response.data.registered_user));
+            
+            
             
         })
       } catch (error) {
